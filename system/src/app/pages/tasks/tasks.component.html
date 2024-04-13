@@ -1,0 +1,16 @@
+<div class="flex flex-wrap">
+  <div class="w-full px-4 lg:w-8/12">
+    <app-card-tasks
+      [tasks]="allTasks"
+      (showModalAdd)="showModalAdd.next($event)"
+      (editTask)="editTask($event)"
+      (removeTask)="removeTask($event)"
+    ></app-card-tasks>
+    <app-modal-add-task
+      [showModal]="showModalAdd"
+      [taskToEdit]="taskToEdit"
+      (saveTask)="saveTask($event)"
+      (closeModal)="toogleShowModalAdd()"
+    ></app-modal-add-task>
+  </div>
+</div>

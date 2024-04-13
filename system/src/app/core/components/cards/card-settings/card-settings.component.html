@@ -1,0 +1,111 @@
+<div
+  class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-white border-0"
+>
+  <div class="rounded-t bg-white mb-0 px-6 py-6">
+    <div class="text-center flex justify-between">
+      <h6 class="text-blueGray-700 text-xl font-bold">Configurações</h6>
+    </div>
+  </div>
+  <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+    <form>
+      <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+        GIT
+      </h6>
+      <div class="flex flex-wrap">
+        <div class="w-full lg:w-6/12 px-4">
+          <div class="relative w-full mb-3">
+            <label
+              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+              htmlFor="grid-password"
+            >
+              URL
+            </label>
+            <input
+              type="text"
+              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+              placeholder="Ex: http://gitlab.com"
+            />
+          </div>
+        </div>
+        <div class="w-full lg:w-6/12 px-4">
+          <div class="relative w-full mb-3">
+            <label
+              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+              htmlFor="grid-password"
+            >
+              Token
+            </label>
+            <div
+              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+            >
+              <input class="border-none m-0 p-0 w-11/12 outline-none" [type]="showToken ? 'text' : 'password'" />
+              <button type="button" class="border-none cursor-pointer" (click)="showToken = !showToken">
+                <i
+                  [ngClass]="[
+                    'fa-regular text-sm text-red-600 text',
+                    showToken ? 'fa-eye-slash' : 'fa-eye'
+                  ]"
+                ></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="mt-6 border-b-1 border-blueGray-300" />
+
+      <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+        Aplicação
+      </h6>
+      <div class="flex flex-wrap">
+        <div class="w-full lg:w-12/12 px-4">
+          <div class="relative w-full mb-3">
+            <label class="inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                value=""
+                class="sr-only peer"
+                checked="checked"
+              />
+              <span
+                class="block uppercase text-blueGray-600 text-xs font-bold me-2"
+                >Salvar Configurações no Navegador</span
+              >
+              <div
+                class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"
+              ></div>
+            </label>
+          </div>
+          <div class="relative w-full mb-3">
+            <label class="inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                value=""
+                class="sr-only peer"
+                checked="checked"
+              />
+              <span
+                class="block uppercase text-blueGray-600 text-xs font-bold me-2"
+                >Utilizar cache</span
+              >
+              <div
+                class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"
+              ></div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <hr class="mt-6 border-b-1 border-blueGray-300" />
+
+      <div class="relative w-full my-3">
+        <button
+          class="bg-red-600 text-white active:bg-red-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+          type="button"
+        >
+          Salvar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

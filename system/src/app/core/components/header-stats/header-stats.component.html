@@ -1,0 +1,28 @@
+<!-- Header -->
+<div class="relative pt-12 pb-32 bg-red-600 md:pt-32">
+  <div class="w-full px-4 mx-auto md:px-10">
+    <div>
+      <!-- Card stats -->
+      <div class="flex flex-wrap">
+        <div class="w-full px-4 lg:w-6/12 xl:w-3/12">
+          <app-card-stats
+            statSubtitle="Pontos"
+            statTitle="0"
+            statPercentColor="text-emerald-500"
+            statIconName="far fa-chart-bar"
+            statIconColor="bg-red-500"
+          ></app-card-stats>
+        </div>
+        <div class="w-full px-4 lg:w-6/12 xl:w-3/12">
+          <app-card-stats
+            statSubtitle="Tarefas"
+            [statTitle]="tasks.length.toString()"
+            statPercentColor="text-red-500"
+            statIconName="fas fa-chart-pie"
+            statIconColor="bg-orange-500"
+          ></app-card-stats>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
