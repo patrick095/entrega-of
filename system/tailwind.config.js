@@ -1,27 +1,28 @@
 /** @type {import('tailwindcss').Config} */
 const plugin = require("tailwindcss/plugin");
-const colors = require("tailwindcss/colors");
+const tailwindColors = require("tailwindcss/colors");
+
+// to remove warns
+delete tailwindColors.lightBlue
+delete tailwindColors.warmGray
+delete tailwindColors.trueGray
+delete tailwindColors.coolGray
+delete tailwindColors.blueGray
 
 module.exports = {
-  content: {
-    enabled: true,
-    content: [
-      "./**/*.html",
-      "./*.html",
-      "./**/*.js",
-      "./*.js",
-      "./**/*.ts",
-      "./*.ts",
-    ],
-    options: {
-      safelist: [],
-    },
-  },
+  content: [
+    "./**/*.html",
+    "./*.html",
+    "./**/*.js",
+    "./*.js",
+    "./**/*.ts",
+    "./*.ts",
+  ],
   theme: {
-    colors: {
-      ...colors,
-    },
     extend: {
+      colors: {
+        ...tailwindColors,
+      },
       minHeight: {
         "screen-75": "75vh",
       },

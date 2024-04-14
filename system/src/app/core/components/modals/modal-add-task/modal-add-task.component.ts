@@ -8,6 +8,7 @@ import {
   OnInit,
   Output,
   ViewChild,
+  afterNextRender,
 } from '@angular/core';
 import {
   FormControl,
@@ -44,7 +45,8 @@ export class ModalAddTaskComponent implements AfterViewInit, OnInit {
     maxDate: new Date(),
     todayHighlight: true,
   };
-
+  private _datepicker?: any;
+  private _datePickerInitialized = false;
   private _dateUtil = new DateUtil();
 
   public form = new FormGroup({
@@ -55,6 +57,15 @@ export class ModalAddTaskComponent implements AfterViewInit, OnInit {
     project: new FormControl<string>('', [Validators.required]),
     branch: new FormControl<string>('', [Validators.required]),
   });
+
+  constructor() {
+    afterNextRender(() => {
+      if (Datepicker) {
+        this._datepicker = Datepicker;
+        this._initDatePicker();
+      }
+    })
+  }
 
   ngOnInit(): void {
     this.showModal?.subscribe((show) => {
@@ -102,14 +113,15 @@ export class ModalAddTaskComponent implements AfterViewInit, OnInit {
   }
 
   private _initDatePicker() {
-    if (Datepicker !== undefined && this.dateStart && this.dateEnd) {
+    if (this._datepicker !== undefined && this.dateStart && this.dateEnd && !this._datePickerInitialized) {
+      this._datePickerInitialized = true;
       this._initDatePickerElement(this.dateStart.nativeElement);
       this._initDatePickerElement(this.dateEnd.nativeElement);
     }
   }
 
   private _initDatePickerElement(element: any): void {
-    new Datepicker(element, this._datePickerOptions);
+    new this._datepicker(element, this._datePickerOptions);
     element.addEventListener('changeDate', (e: any) => {
       const value = e.target.value;
       const formControlName = e.target.getAttribute('formControlName');
