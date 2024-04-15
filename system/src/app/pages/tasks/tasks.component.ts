@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, WritableSignal, afterNextRender, signal } from "@angular/core";
 import { CardTasksComponent } from "../../core/components/cards/card-tasks/card-tasks.component";
 import { ModalAddTaskComponent } from "../../core/components/modals/modal-add-task/modal-add-task.component";
 import { ITask } from "../../core/interfaces/task.interface";
@@ -13,18 +13,21 @@ import { BehaviorSubject } from "rxjs";
 })
 export class TasksComponent implements OnInit {
   public showModalAdd = new BehaviorSubject(false);
-  public allTasks: Array<ITask>;
+  public allTasks: WritableSignal<Array<ITask>>;
   public taskToEdit?: ITask;
 
   constructor(private _service: TaskService) {
-    this.allTasks = this._service.getAllTasks();
+    this.allTasks = signal([]);
+    afterNextRender(() => this._updateAllTasks());
   }
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    this._updateAllTasks();
+  }
 
   public saveTask(task: ITask): void {
     this._service.addTask(task);
-    this.allTasks = this._service.getAllTasks();
+    this._updateAllTasks();
   }
 
   public toogleShowModalAdd() {
@@ -42,5 +45,9 @@ export class TasksComponent implements OnInit {
     if (isConfirmed) {
       this._service.removeTaskByNumber(number);
     }
+  }
+
+  private _updateAllTasks(): void {
+    this.allTasks.set(this._service.getAllTasks());
   }
 }

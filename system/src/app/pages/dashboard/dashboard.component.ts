@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, WritableSignal, afterNextRender, signal } from "@angular/core";
 import { CardTableComponent } from "../../core/components/cards/card-table/card-table.component";
 import { ITask } from "../../core/interfaces/task.interface";
 import { TaskService } from "../../core/services/task.service";
@@ -10,11 +10,17 @@ import { TaskService } from "../../core/services/task.service";
   imports: [CardTableComponent]
 })
 export class DashboardComponent implements OnInit {
-  public allTasks: Array<ITask> = [];
+  public allTasks: WritableSignal<Array<ITask>> = signal([]);
 
-  constructor(private _taskService: TaskService) {}
+  constructor(private _taskService: TaskService) {
+    afterNextRender(() => this._updateAllTasks());
+  }
 
   ngOnInit() {
-    this.allTasks = this._taskService.getAllTasks();
+    this._updateAllTasks();
+  }
+
+  private _updateAllTasks(): void {
+    this.allTasks.set(this._taskService.getAllTasks());
   }
 }

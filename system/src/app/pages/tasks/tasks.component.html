@@ -1,7 +1,7 @@
 <div class="flex flex-wrap">
-  <div class="w-full px-4 lg:w-8/12">
+  <div class="w-full px-4 xl:w-8/12">
     <app-card-tasks
-      [tasks]="allTasks"
+      [tasks]="allTasks()"
       (showModalAdd)="showModalAdd.next($event)"
       (editTask)="editTask($event)"
       (removeTask)="removeTask($event)"

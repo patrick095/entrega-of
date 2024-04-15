@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { ITask } from "../../../interfaces/task.interface";
 import { CommonModule } from "@angular/common";
 
@@ -8,15 +8,13 @@ import { CommonModule } from "@angular/common";
   standalone: true,
   imports: [CommonModule]
 })
-export class CardTableComponent implements OnInit {
+export class CardTableComponent {
   @Input() public tasks: Array<ITask> = [];
   @Input() public isTaskManager = false;
   @Output() public editTask = new EventEmitter<ITask>();
   @Output() public removeTask = new EventEmitter<string>();
 
   constructor() {}
-
-  ngOnInit(): void {}
 
   public edit(task: ITask): void {
     this.editTask.emit(task);

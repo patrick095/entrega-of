@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, afterNextRender } from '@angular/core';
 import { StorageUtil } from '../utils/storage.util';
 import { ITask } from '../interfaces/task.interface';
 import { BehaviorSubject } from 'rxjs';
@@ -12,6 +12,12 @@ export class TaskService {
 
   constructor(private _storage: StorageUtil) {
     this._allTasks = new BehaviorSubject<Array<ITask>>(this._storage.get(this._taskStorageId) ?? []);
+    afterNextRender(() => {
+      const savedTasks = this._storage.get<Array<ITask>>(this._taskStorageId);
+      if (savedTasks) {
+        this._allTasks.next(savedTasks)
+      }
+    });
   }
 
   public getAllTasks(): Array<ITask> {

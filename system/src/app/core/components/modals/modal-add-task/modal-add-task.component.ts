@@ -64,19 +64,28 @@ export class ModalAddTaskComponent implements AfterViewInit, OnInit {
         this._datepicker = Datepicker;
         this._initDatePicker();
       }
-    })
+    });
   }
 
   ngOnInit(): void {
     this.showModal?.subscribe((show) => {
       this.isShowModal = show;
       if (this.taskToEdit && show) {
-        this.form.setValue({
-          ...this.taskToEdit,
-          description: this.taskToEdit.description ?? null,
-          dateStart: this._dateUtil.formatDateToStringBR(this.taskToEdit.dateStart),
-          dateEnd: this._dateUtil.formatDateToStringBR(this.taskToEdit.dateEnd),
-        }, { onlySelf: true });
+        this.form.setValue(
+          {
+            branch: this.taskToEdit.branch,
+            number: this.taskToEdit.number,
+            project: this.taskToEdit.project,
+            description: this.taskToEdit.description ?? null,
+            dateStart: this._dateUtil.formatDateToStringBR(
+              this.taskToEdit.dateStart
+            ),
+            dateEnd: this._dateUtil.formatDateToStringBR(
+              this.taskToEdit.dateEnd
+            ),
+          },
+          { onlySelf: true }
+        );
       } else {
         this.form.reset();
       }
@@ -105,15 +114,22 @@ export class ModalAddTaskComponent implements AfterViewInit, OnInit {
         dateEnd: this._dateUtil.convertStringBrToDate(dateEnd),
         project,
         branch,
+        points: 0,
       });
       this.closeModal.emit(true);
+      this.form.reset();
       return;
     }
     alert('Atenção, você deve preencher todos os campos obrigatórios!');
   }
 
   private _initDatePicker() {
-    if (this._datepicker !== undefined && this.dateStart && this.dateEnd && !this._datePickerInitialized) {
+    if (
+      this._datepicker !== undefined &&
+      this.dateStart &&
+      this.dateEnd &&
+      !this._datePickerInitialized
+    ) {
       this._datePickerInitialized = true;
       this._initDatePickerElement(this.dateStart.nativeElement);
       this._initDatePickerElement(this.dateEnd.nativeElement);
@@ -122,12 +138,18 @@ export class ModalAddTaskComponent implements AfterViewInit, OnInit {
 
   private _initDatePickerElement(element: any): void {
     new this._datepicker(element, this._datePickerOptions);
-    element.addEventListener('changeDate', (e: any) => {
-      const value = e.target.value;
+    // element.addEventListener('changeDate', (e: any) => this._updateValue(e));
+    element.addEventListener('hide', (e: any) => this._updateValue(e));
+  }
+
+  private _updateValue(e: any) {
+    const value = e.target.value;
+    if (value) {
       const formControlName = e.target.getAttribute('formControlName');
       const formControl = this.form.get(formControlName);
       formControl?.setValue(value);
+      formControl?.updateValueAndValidity();
       formControl?.markAsDirty();
-    });
+    }
   }
 }

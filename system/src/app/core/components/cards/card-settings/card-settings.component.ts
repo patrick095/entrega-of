@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { AfterViewInit, Component, OnInit, WritableSignal, afterNextRender, signal } from '@angular/core';
+import { Component, WritableSignal, afterNextRender, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -40,7 +40,7 @@ export class CardSettingsComponent {
       setTimeout(() => {
         this.form.setValue({ gitUrl, gitToken, useCache, saveStorage });
         this.watchFormAndcheckConection();
-      }, 500);
+      });
     });
   }
 
