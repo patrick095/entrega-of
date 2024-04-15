@@ -54,6 +54,13 @@
         </tr>
       </thead>
       <tbody>
+        <tr *ngIf="tasks.length === 0">
+          <th
+          colspan="6"
+          class="p-4 px-6 text-xs text-center align-middle border-t-0 border-l-0 border-r-0 whitespace-nowrap">
+            Nenhuma tarefa adicionada
+          </th>
+        </tr>
         <tr *ngFor="let task of tasks">
           <th
             class="p-4 px-6 text-xs text-left align-middle border-t-0 border-l-0 border-r-0 whitespace-nowrap"

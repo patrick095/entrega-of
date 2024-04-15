@@ -3,7 +3,7 @@ import { Injectable, afterNextRender } from "@angular/core";
 @Injectable({
     providedIn: 'root'
   })
-export class StorageUtil {
+export class SessionUtil {
     public window?: Window;
 
     constructor() {
@@ -13,21 +13,21 @@ export class StorageUtil {
     }
 
     public get<T>(key: string): T | null {
-        const stringObject = this.window?.localStorage.getItem(key);
+        const stringObject = this.window?.sessionStorage.getItem(key);
         if (!stringObject) return null;
         return JSON.parse(atob(stringObject)) as T;
     }
 
     public store(key: string, data: any): void {
         const parsedData = btoa(JSON.stringify(data));
-        void this.window?.localStorage.setItem(key, parsedData);
+        void this.window?.sessionStorage.setItem(key, parsedData);
     }
 
     public remove(key: string): void {
-        void this.window?.localStorage.removeItem(key);
+        void this.window?.sessionStorage.removeItem(key);
     }
 
     public clear(): void {
-        void this.window?.localStorage.clear();
+        void this.window?.sessionStorage.clear();
     }
 }
